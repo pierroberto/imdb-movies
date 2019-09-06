@@ -34,7 +34,7 @@ function Search() {
     )
 
     const findMovieByName = () => {
-        return axios.get(BASE_URL, {params}) //.then(response => setResults(response.data && response.data.Search))
+        return axios.get(BASE_URL, {params})
     }
 
     return (
