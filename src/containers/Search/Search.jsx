@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react'
 import axios from 'axios'
-import SearchBox from 'components/SearchBox'
+import SearchList from 'components/SearchList'
 import {BASE_URL, PUBLIC_KEY} from '../../constants'
 import useDebounce from 'utils/hooks/debounce'
 
 
 function Search() {
+
     const [search, setSearch] = React.useState('')
     const [results, setResults] = React.useState([])
     const [isSearching, setIsSearching] = React.useState(false)
+
     const params = {
         s: search, 
         apikey: PUBLIC_KEY
@@ -20,9 +22,9 @@ function Search() {
         () => {
             if (debouncedSearch) {
                 setIsSearching(true)
-                findMovieByName(debouncedSearch).then(results => {
+                findMovieByName(debouncedSearch).then(moviesFound => {
                     setIsSearching(false)
-                    setResults(results)
+                    setResults(moviesFound && moviesFound.data && moviesFound.data.Search)
                 })
             } else {
                 setResults([])
@@ -30,11 +32,16 @@ function Search() {
         },
         [debouncedSearch]
     )
+
     const findMovieByName = () => {
-        return axios.get(BASE_URL, {params}).then(response => setResults(response.data))
+        return axios.get(BASE_URL, {params}) //.then(response => setResults(response.data && response.data.Search))
     }
 
-    return <SearchBox setSearch={setSearch} results={results} />
+    return (
+        <div>
+            <SearchList isSearching={isSearching} setSearch={setSearch} movies={results} />
+        </div>
+    )
 
 }
 
