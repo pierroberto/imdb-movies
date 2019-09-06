@@ -1,16 +1,12 @@
-import React, { useEffect } from 'react'
-import {BASE_URL, PUBLIC_KEY} from '../../constants'
+import React from 'react'
 import Search from '../Search'
-
-const params = {
-    apikey: PUBLIC_KEY,
-}
+import {Row} from 'antd'
 
 function Movies() {
     return (
-        <>
-        <Search />
-        </>
+        <Row>
+            <Search />
+        </Row>
     )
 
 }

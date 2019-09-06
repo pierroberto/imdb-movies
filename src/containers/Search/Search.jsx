@@ -1,21 +1,13 @@
 import React, {useEffect} from 'react'
-import axios from 'axios'
 import SearchList from 'components/SearchList'
-import {BASE_URL, PUBLIC_KEY} from '../../constants'
 import useDebounce from 'utils/hooks/debounce'
-
+import { findMovieByName, getMovieDetails } from 'api/imdb'
 
 function Search() {
 
     const [search, setSearch] = React.useState('')
     const [results, setResults] = React.useState([])
     const [isSearching, setIsSearching] = React.useState(false)
-
-    const params = {
-        s: search, 
-        apikey: PUBLIC_KEY
-    }
-    
     const debouncedSearch = useDebounce(search, 500)
 
     useEffect(
@@ -23,8 +15,12 @@ function Search() {
             if (debouncedSearch) {
                 setIsSearching(true)
                 findMovieByName(debouncedSearch).then(moviesFound => {
+                    moviesFound.data.Search.forEach(movie => {
+                        getMovieDetails(movie.imdbID).then(movieDetails => {
+                            setResults((results) => [...results, movieDetails.data])
+                        })
+                    })
                     setIsSearching(false)
-                    setResults(moviesFound && moviesFound.data && moviesFound.data.Search)
                 })
             } else {
                 setResults([])
@@ -33,14 +29,8 @@ function Search() {
         [debouncedSearch]
     )
 
-    const findMovieByName = () => {
-        return axios.get(BASE_URL, {params})
-    }
-
     return (
-        <div>
-            <SearchList isSearching={isSearching} setSearch={setSearch} movies={results} />
-        </div>
+        <SearchList isSearching={isSearching} setSearch={setSearch} movies={results} />
     )
 
 }
