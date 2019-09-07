@@ -1,8 +1,19 @@
 import React from 'react'
 import { Row, Col, Spin, Input, Card} from 'antd'
 import Modal from '../Modal'
+import styles from './searchList.module.scss'
+import notFound from '../../asset/not-available.png'
 
 const { Meta } = Card
+const { Search } = Input
+
+const getCover = url => {
+    console.log('url', url)
+    if (url === 'N/A') {
+        return notFound
+    }
+    return url
+}
 
 function SearchList(props) {
     const { isSearching, setSearch, movies } = props
@@ -10,33 +21,32 @@ function SearchList(props) {
     const [movieTitle, setMovieTitle] = React.useState('')
     const [moviePlot, setMoviePlot] = React.useState('')
     return (
-        <div>
+        <>
             <Modal 
                 showModal={showModal} 
                 setShowModal={setShowModal}
                 title={movieTitle}
                 plot={moviePlot}
             />
-            <Row style={{margin: 50}}>
-                <Input onChange={(e) => setSearch(e.target.value)}/>
+            <Row className={styles.searchBox}>
+                <Search placeholder={'search a movie by title'} onChange={(e) => setSearch(e.target.value)}/>
             </Row>
             <Row type={'flex'} justify={'center'}>
                 {isSearching && <Spin tip={'searching'} size={'large'}/>}
             </Row>
-            <Row type={'flex'} justify="space-between">
+            <Row type={'flex'} className={styles.movieRow}>
                 {
                     movies && movies.map((movie, i) => {
-                        const Img = movie.Poster
                         return (
-                            <Col key={i} style={{margin: 50}}>
+                            <Col key={i} className={styles.movieCol}>
                                 <Card onClick={() => {
                                     setMovieTitle(movie.Title)
                                     setMoviePlot(movie.Plot)
                                     setShowModal(true)
                                 }} 
                                 hoverable 
-                                style={{ width: 250, height:'100%', marginBottom: 20 }} 
-                                cover={<img src={Img} />}
+                                className={styles.movieCard} 
+                                cover={<img src={getCover(movie.Poster)} />}
                                 >
                                     <Meta title={`${movie.Title} (${movie.Year})`} description={`Rate: ${movie.imdbRating}`}/>
                                 </Card>
@@ -45,7 +55,7 @@ function SearchList(props) {
                     })
                 }
             </Row>
-        </div>
+        </>
     )
 }
 

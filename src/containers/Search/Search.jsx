@@ -4,7 +4,6 @@ import useDebounce from 'utils/hooks/debounce'
 import { findMovieByName, getMovieDetails } from 'api/imdb'
 
 function Search() {
-
     const [search, setSearch] = React.useState('')
     const [results, setResults] = React.useState([])
     const [isSearching, setIsSearching] = React.useState(false)
@@ -12,19 +11,17 @@ function Search() {
 
     useEffect(
         () => {
-            if (debouncedSearch) {
-                setIsSearching(true)
-                findMovieByName(debouncedSearch).then(moviesFound => {
-                    moviesFound.data.Search.forEach(movie => {
-                        getMovieDetails(movie.imdbID).then(movieDetails => {
-                            setResults((results) => [...results, movieDetails.data])
-                        })
+            setResults([])
+            setIsSearching(true)
+            findMovieByName(debouncedSearch).then(moviesFound => {
+                moviesFound && moviesFound.data && moviesFound.data.Search && moviesFound.data.Search.forEach(movie => {
+                    getMovieDetails(movie.imdbID).then(movieDetails => {
+                        setResults((results) => [...results, movieDetails.data])
                     })
-                    setIsSearching(false)
                 })
-            } else {
-                setResults([])
-            }
+                setIsSearching(false)
+            })
+
         },
         [debouncedSearch]
     )
