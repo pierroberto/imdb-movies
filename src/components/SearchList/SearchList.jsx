@@ -8,7 +8,6 @@ const { Meta } = Card
 const { Search } = Input
 
 const getCover = url => {
-    console.log('url', url)
     if (url === 'N/A') {
         return notFound
     }
