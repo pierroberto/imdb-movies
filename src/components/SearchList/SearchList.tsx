@@ -55,7 +55,12 @@ function SearchList(props: Props) {
                                     }}
                                     hoverable
                                     className={styles.movieCard}
-                                    cover={<img src={getCover(movie.Poster)} />}
+                                    cover={
+                                        <img
+                                            alt="poster"
+                                            src={getCover(movie.Poster)}
+                                        />
+                                    }
                                 >
                                     <Meta
                                         title={`${movie.Title} (${movie.Year})`}

@@ -1,7 +1,15 @@
 import axios from 'axios'
 import { BASE_URL, PUBLIC_KEY } from '../constants'
+import { EnumMovieItems } from 'interfaces/movie'
 
-export const findMovieByName = search => {
+interface IOmdbMovie {
+    data: { Search: Array<any> }
+}
+interface IOmdbDetails {
+    data: EnumMovieItems
+}
+
+export const findMovieByName = (search: string): Promise<IOmdbMovie> => {
     const params = {
         s: search,
         apikey: PUBLIC_KEY,
@@ -9,7 +17,7 @@ export const findMovieByName = search => {
     return axios.get(BASE_URL, { params })
 }
 
-export const getMovieDetails = id => {
+export const getMovieDetails = (id: string): Promise<IOmdbDetails> => {
     const params = {
         i: id,
         apikey: PUBLIC_KEY,
