@@ -9,3 +9,6 @@ This app displays a list of movies from IMDB with their plots and ratings.
 - React
 - Sass
 - Typescript
+
+# Demo
+[Live Demo](https://imdb-movies-search.herokuapp.com)
