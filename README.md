@@ -1,5 +1,10 @@
 # IMDB movies
 
+<p align="center">
+<img src="./logo.svg" width="200px" height="auto"/>
+</p>
+
+[![license](https://badgen.now.sh/badge/license/MIT)](./LICENSE)
 This app displays a list of movies from IMDB with their plots and ratings.
 
 # Installation
