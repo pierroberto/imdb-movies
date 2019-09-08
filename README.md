@@ -8,3 +8,4 @@ This app displays a list of movies from IMDB with their plots and ratings.
 # Tech Stack
 - React
 - Sass
+- Typescript
