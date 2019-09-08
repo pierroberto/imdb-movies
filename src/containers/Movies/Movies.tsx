@@ -1,7 +1,7 @@
 import React from 'react'
 import Search from '../Search'
 import Footer from '../../components/Footer'
-import {Row} from 'antd'
+import { Row } from 'antd'
 
 function Movies() {
     return (
@@ -10,7 +10,6 @@ function Movies() {
             <Footer />
         </Row>
     )
-
 }
 
 export default Movies

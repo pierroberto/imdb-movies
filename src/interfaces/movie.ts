@@ -7,4 +7,4 @@ export interface EnumMovieItem {
     imdbID: string
 }
 
-export interface EnumMovieItems extends Array<EnumMovieItem>{}
+export interface EnumMovieItems extends Array<EnumMovieItem> {}
