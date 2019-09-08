@@ -1,7 +1,14 @@
 import React from 'react'
 import { Modal as AntdModal } from 'antd'
 
-function Modal(props) {
+interface Props {
+    showModal: boolean
+    setShowModal(showModal:boolean): void
+    title: string
+    plot: string
+}
+
+function Modal(props:Props) {
     const {showModal, setShowModal, title, plot} = props
 
     return (

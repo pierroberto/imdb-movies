@@ -3,18 +3,24 @@ import { Row, Col, Spin, Input, Card} from 'antd'
 import Modal from '../Modal'
 import styles from './searchList.module.scss'
 import notFound from '../../asset/not-available.png'
+import { EnumMovieItems } from 'interfaces/movie'
+
+interface Props {
+    isSearching: boolean
+    setSearch(search:string):void
+    movies: EnumMovieItems
+}
 
 const { Meta } = Card
 const { Search } = Input
-
-const getCover = url => {
+const getCover = (url:string) => {
     if (url === 'N/A') {
         return notFound
     }
     return url
 }
 
-function SearchList(props) {
+function SearchList(props:Props) {
     const { isSearching, setSearch, movies } = props
     const [showModal, setShowModal] = React.useState(false)
     const [movieTitle, setMovieTitle] = React.useState('')
